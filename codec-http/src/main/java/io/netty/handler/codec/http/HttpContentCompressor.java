@@ -23,7 +23,6 @@ import java.util.Map;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.embedded.EmbeddedChannel;
-import io.netty.channel.embedded.EmbeddedChannelBuilder;
 import io.netty.handler.codec.MessageToByteEncoder;
 import io.netty.handler.codec.compression.Brotli;
 import io.netty.handler.codec.compression.BrotliEncoder;
