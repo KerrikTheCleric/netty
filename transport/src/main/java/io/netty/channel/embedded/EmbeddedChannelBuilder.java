@@ -9,17 +9,16 @@ import java.util.Arrays;
 
 public class EmbeddedChannelBuilder implements IEmbeddedChannelBuilder{
 
-   private ChannelId channelId = null;
+   private ChannelId channelId = EmbeddedChannelId.INSTANCE;
    private boolean hasDisconnect = false;
+   private ArrayList<ChannelHandler> channelHandlers = new ArrayList<>();
    private ChannelConfig channelConfig = null;
-   private ArrayList<ChannelHandler> channelHandlers = null;
-
 
     @Override
     public void reset() {
-        channelId = null;
+        channelId = EmbeddedChannelId.INSTANCE;
         hasDisconnect = false;
-        channelHandlers = null;
+        channelHandlers.clear();
         ChannelConfig channelConfig = null;
     }
 
@@ -38,13 +37,12 @@ public class EmbeddedChannelBuilder implements IEmbeddedChannelBuilder{
         channelHandlers.addAll(Arrays.asList(handlers));
     }
 
-    public void isConfig(ChannelConfig channelConfig) {
+    public void setConfig(ChannelConfig channelConfig) {
         this.channelConfig = channelConfig;
     }
 
     @Override
     public EmbeddedChannel build() {
-
         ChannelHandler[] arr = new ChannelHandler[channelHandlers.size()];
         arr = channelHandlers.toArray(arr);
         return new EmbeddedChannel(channelId, hasDisconnect, channelConfig, arr);
