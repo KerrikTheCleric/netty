@@ -17,6 +17,7 @@ public interface IEmbeddedChannelBuilder {
    boolean hasDisconnect = false;
    final ArrayList<ChannelHandler> handlers = null;*/
 
+    public void reset();
 
     public void setChannelId(ChannelId channelId);
 
@@ -24,7 +25,7 @@ public interface IEmbeddedChannelBuilder {
     public void setHasDisconnect(boolean hasDisconnect);
 
 
-    public void setChannelConfig(ChannelConfig config);
+    //public void setChannelConfig(ChannelConfig config);
 
 
     public void addHandlers(ChannelHandler... handlers);
