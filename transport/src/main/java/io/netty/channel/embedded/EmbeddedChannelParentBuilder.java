@@ -7,7 +7,7 @@ import io.netty.channel.ChannelId;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class EmbeddedChannelParent implements IEmbeddedChannelBuilder{
+public class EmbeddedChannelParentBuilder implements IEmbeddedChannelBuilder{
     private ChannelId channelId = EmbeddedChannelId.INSTANCE;
     private boolean hasDisconnect = false;
     private final ArrayList<ChannelHandler> channelHandlers = new ArrayList<>();
