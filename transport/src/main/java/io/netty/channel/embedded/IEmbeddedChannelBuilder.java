@@ -15,4 +15,3 @@ public interface IEmbeddedChannelBuilder {
 
     EmbeddedChannel build();
 }
-
