@@ -23,6 +23,7 @@ import java.util.Map;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.embedded.EmbeddedChannel;
+import io.netty.channel.embedded.EmbeddedChannelBuilder;
 import io.netty.handler.codec.MessageToByteEncoder;
 import io.netty.handler.codec.compression.Brotli;
 import io.netty.handler.codec.compression.BrotliEncoder;
@@ -281,9 +282,19 @@ public class HttpContentCompressor extends HttpContentEncoder {
             throw new IllegalStateException("Couldn't find CompressionEncoderFactory: " + targetContentEncoding);
         }
 
+        EmbeddedChannelBuilder builder = new EmbeddedChannelBuilder();
+        builder.setChannelId(ctx.channel().id());
+        builder.setHasDisconnect(ctx.channel().metadata().hasDisconnect());
+        builder.setConfig(ctx.channel().config());
+        builder.addHandlers(encoderFactory.createEncoder());
+        EmbeddedChannel channel = builder.build();
+
         return new Result(targetContentEncoding,
+                channel);
+
+        /*return new Result(targetContentEncoding,
                 new EmbeddedChannel(ctx.channel().id(), ctx.channel().metadata().hasDisconnect(),
-                        ctx.channel().config(), encoderFactory.createEncoder()));
+                        ctx.channel().config(), encoderFactory.createEncoder()));*/
     }
 
     @SuppressWarnings("FloatingPointEquality")
